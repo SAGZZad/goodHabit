@@ -1,121 +1,52 @@
-// Находим нужные элементы на странице
-const habitInput = document.getElementById('habitInput');
-const addButton = document.getElementById('addButton');
-const habitsContainer = document.getElementById('habitsContainer');
+document.addEventListener('DOMContentLoaded', () => {
+    const habitInput = document.getElementById('habit-input');
+    const addHabitBtn = document.getElementById('add-habit-btn');
+    const habitsList = document.getElementById('habits-list');
 
-// Массив с начальными привычками
-const habits = [
-    'Пить 2 литра воды в день',
-    'Делать зарядку по утрам',
-    'Читать 30 минут в день'
-];
+    // Начальные привычки
+    const initialHabits = [
+        "Пить больше воды",
+        "Делать зарядку утром",
+        "Читать книгу перед сном"
+    ];
 
+    // Функция для добавления карточки привычки
+    function addHabitCard(text) {
+        const habitCard = document.createElement('div');
+        habitCard.classList.add('habit-card');
 
-// Функция создания новой привычки
-function addHabit() {
-    // Получаем текст из поля ввода и убираем пробелы
-    const text = habitInput.value.trim();
-    // Проверяем, что поле не пустое
-    if (text === '') {
-        alert('Пожалуйста, введите привычку!');
-        return;
-    }
-    // Добавляем привычку в массив
-    habits.push(text);
-    // Очищаем поле ввода
-    habitInput.value = '';
-    // Обновляем список привычек на странице
-    showHabits();
-}
+        const habitText = document.createElement('span');
+        habitText.textContent = text;
 
-
-// Функция удаления привычки
-function deleteHabit(index) {
-    // Спрашиваем подтверждение
-    const sure = confirm('Вы уверены, что хотите удалить эту привычку?');
-    if (sure) {
-        // Удаляем привычку из массива
-        habits.splice(index, 1);
-        // Обновляем список привычек на странице
-        showHabits();
-    }
-}
-
-// Функция отметки о выполнении
-function toggleHabit(card) {
-    // Если карточка уже выполнена
-    if (card.classList.contains('completed')) {
-        card.classList.remove('completed');
-        card.querySelector('button').textContent = 'Выполнено';
-    } else {
-        card.classList.add('completed');
-        card.querySelector('button').textContent = 'Отменить';
-    }
-}
-
-// Функция показа всех привычек
-function showHabits() {
-    // Очищаем контейнер
-    habitsContainer.innerHTML = '';
-    
-    // Перебираем все привычки
-    for (let i = 0; i < habits.length; i++) {
-        // Создаем карточку
-        const card = document.createElement('div');
-        card.className = 'habit-card';
-        
-        // Создаем заголовок
-        const title = document.createElement('h3');
-        title.textContent = habits[i];
-        
-        // Создаем контейнер для кнопок
-        const buttons = document.createElement('div');
-        buttons.className = 'card-buttons';
-        
-        // Создаем кнопку выполнения
         const completeBtn = document.createElement('button');
-        completeBtn.className = 'complete-btn';
+        completeBtn.classList.add('complete-btn');
         completeBtn.textContent = 'Выполнено';
-        
-        // Добавляем обработчик на кнопку выполнения
-        completeBtn.onclick = function(card) {
-            return function() {
-                toggleHabit(card);
-            };
-        }(card);
-        
-        // Создаем кнопку удаления
+        completeBtn.addEventListener('click', () => {
+            habitCard.classList.toggle('completed');
+        });
+
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
+        deleteBtn.classList.add('delete-btn');
         deleteBtn.textContent = 'Удалить';
-        
-        // Добавляем обработчик на кнопку удаления
-        deleteBtn.onclick = function(index) {
-            return function() {
-                deleteHabit(index);
-            };
-        }(i);
-        
-        // Собираем карточку
-        buttons.appendChild(completeBtn);
-        buttons.appendChild(deleteBtn);
-        card.appendChild(title);
-        card.appendChild(buttons);
-        
-        // Добавляем карточку на страницу
-        habitsContainer.appendChild(card);
+        deleteBtn.addEventListener('click', () => {
+            habitsList.removeChild(habitCard);
+        });
+
+        habitCard.appendChild(habitText);
+        habitCard.appendChild(completeBtn);
+        habitCard.appendChild(deleteBtn);
+        habitsList.appendChild(habitCard);
     }
-}
 
-// Добавляем обработчик на кнопку добавления привычки
-addButton.onclick = addHabit;
+    // Добавляем начальные привычки
+    initialHabits.forEach(habit => addHabitCard(habit));
 
-// Добавляем обработчик на поле ввода для добавления по Enter
-habitInput.onkeypress = function(event) {
-    if (event.key === 'Enter') {
-        addHabit();
-    }
-};
-
-// Показываем начальный список привычек
-showHabits();
+    // Обработчик для добавления новой привычки
+    addHabitBtn.addEventListener('click', () => {
+        const habitText = habitInput.value.trim();
+        if (habitText !== '') {
+            addHabitCard(habitText);
+            habitInput.value = '';
+        }
+    });
+});
