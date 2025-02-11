@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список полезных привычек</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Хорошие привычки</title>
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Трекер полезных привычек</h1>
-        <div class="input-section">
-            <input type="text" id="habit-input" placeholder="Введите полезную привычку">
-            <button id="add-habit-btn">Добавить</button>
+        <h1>Трекер хороших привычек</h1>
+
+        <div class="habit-form">
+
+            <input type="text" id="habit-title" placeholder="Название привычки">
+            <input type="text" id="habit-description" placeholder="Описание привычки"></input>
+            <input type="text" id="habit-image" accept="image/*"  placeholder="URL картинки">
+            <button id="add-habit">Добавить привычку</button>
+            <button id="add-habit-svo">удалить всё</button>
         </div>
-        <div id="habits-list"></div>
+
+        <div id="habits-container">
+            <ul id="ul"></ul>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    
+    <template id="template">
+        <li>
+          <h4 class="h4tit"></h4>
+          <p class="ptit"></p>
+          <img class="imgtit" src="" alt="dsadsa">
+          <button class="buttit">Выполнено</button>
+          <BUtton class="but-deltit">Удалить</BUtton>
+        </li>
+      </template>
+
+      
+      <script src="script/script.js"></script>
 </body>
 </html>
