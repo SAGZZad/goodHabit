@@ -1,17 +1,17 @@
 const habit = [
     {
       imgages: "assets/images/5d38416977442.jpg",
-      title: "бег",
+      title: "Бег",
       description: "Утренний бег — это заряд энергии и здоровье!",
     },
     {
       imgages: "assets/images/i (1).webp",
-      title: "вода",
+      title: "Вода",
       description: "Пей 2 литра воды в день для здоровья и бодрости.",
     },
     {
       imgages: "assets/images/i.webp",
-      title: "книги",
+      title: "Книги",
       description: "Читай 30 минут в день, чтобы развиваться и узнавать новое.",
     },
   ];
@@ -27,9 +27,12 @@ const habit = [
   function habitadd() {
     habit.forEach((item) => {
       const clon = template.cloneNode(true);
+      //глубокое копирование 
       clon.querySelector(".h4tit").textContent = item.title;
       clon.querySelector(".ptit").textContent = item.description;
       clon.querySelector(".imgtit").src = item.imgages;
+    //для чего 
+     
   
       // Добавляем обработчик для кнопки удаления
       const delBut = clon.querySelector('.but-deltit');
@@ -37,6 +40,7 @@ const habit = [
         const li = delBut.parentElement; // Находим родительский элемент <li>
         ul.removeChild(li); // Удаляем <li> из <ul>
       });
+      //parentElement — это свойство DOM-элемента, которое возвращает его родительский элемент в DOM-дереве.
   
       // Добавляем обработчик для кнопки "Выполнено"
       const doneBut = clon.querySelector('.buttit');
@@ -45,6 +49,8 @@ const habit = [
       });
   
       ul.appendChild(clon);
+      //добовляет в конец списка дочерних элементов (ul)
+      
     });
   }
   
