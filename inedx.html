@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
+    <div class="modal" id="editModal">
+        <div class="modal_content">
+            <span class="close-btn">✖</span>
+            <form class="form" id="editForm">
+                <h1>Редактировать карточку</h1>
+                <div>
+                    <label for="edit-title">Заголовок</label>
+                    <input class="title_input" type="text" id="edit-title" name="title" >
+                </div>
+                <div>
+                    <label for="edit-description">Описание</label>
+                    <input class="description_input" type="text" id="edit-description" name="description" >
+                </div>
+                <div>
+                    <label for="edit-image">URL изображения</label>
+                    <input class="description_input" type="text" id="edit-image" name="image">
+                </div>
+                <button class="sox" type="submit">Сохранить</button>
+                <button class="otm" type="button" id="cancel-edit">Отмена</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Трекер хороших привычек</h1>
 
@@ -30,7 +53,9 @@
           <h4 class="h4tit"></h4>
           <p class="ptit"></p>
           <img class="imgtit" src="" alt="#">
+          
           <button class="buttit">Выполнено</button>
+          <button class="buttit-rev">Редактировать</button>
           <BUtton class="but-deltit">Удалить</BUtton>
         </li>
       </template>

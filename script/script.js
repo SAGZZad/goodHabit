@@ -24,6 +24,7 @@ const imageInput = document.getElementById('habit-image');
 const add = document.getElementById('add-habit');
 const addVso = document.getElementById('add-habit-svo');
 
+
 // Функция для удаления элемента
 function deleteHabit(event) {
   const li = event.target.parentElement; // Находим родительский элемент <li>
@@ -50,8 +51,14 @@ function addHabit(title, description, image) {
   const doneBut = addClon.querySelector('.buttit');
   doneBut.addEventListener('click', toggleCompleted);
 
+   // Добавляем обработчик для кнопки "Редактировать"
+   const editBut = addClon.querySelector('.buttit-rev');
+   editBut.addEventListener('click', () => openEditModal(addClon, title, description, image));
+ 
+
   ul.appendChild(addClon);
 }
+
 
 // Инициализация списка привычек
 function initHabits() {
@@ -77,5 +84,51 @@ addVso.addEventListener('click', () => {
   });
 });
 
+
 // Инициализация
 initHabits();
+//2 практиика 
+// Функция для открытия модального окна редактирования
+function openEditModal(liElement, currentTitle, currentDescription, currentImage) {
+  const modal = document.getElementById('editModal');
+  const editTitle = document.getElementById('edit-title');
+  const editDescription = document.getElementById('edit-description');
+  const editImage = document.getElementById('edit-image');
+  
+  // Заполняем поля текущими значениями
+  editTitle.value = currentTitle;
+  editDescription.value = currentDescription;
+  editImage.value = currentImage;
+  
+  // Показываем модальное окно
+  modal.style.display = 'block';
+  
+  // Обработчик для кнопки закрытия
+  document.querySelector('.close-btn').onclick = function() {
+    modal.style.display = 'none';
+  };
+  
+  // Обработчик для кнопки отмены
+  document.getElementById('cancel-edit').onclick = function() {
+    modal.style.display = 'none';
+  };
+  
+  // Обработчик для формы редактирования
+  document.getElementById('editForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    // Обновляем данные в карточке
+    liElement.querySelector(".h4tit").textContent = editTitle.value;
+    liElement.querySelector(".ptit").textContent = editDescription.value;
+    liElement.querySelector(".imgtit").src = editImage.value;
+    
+    // Закрываем модальное окно
+    modal.style.display = 'none';
+  };
+  
+
+}
+
+
+
+
