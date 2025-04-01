@@ -1,17 +1,17 @@
 // массив с начальными данными о привычках.
 export const habits = [
     {
-      imgages: "../src/assets/5d38416977442.jpg",
+      imgages: runImage,
       title: "Бег",
       description: "Утренний бег — это заряд энергии и здоровье!",
     },
     {
-      imgages: "../src/assets/i (1).webp",
+      imgages: waterImage,
       title: "Вода",
       description: "Пей 2 литра воды в день для здоровья и бодрости.",
     },
     {
-      imgages: "../src/assets/i.webp",
+      imgages: bookImage,
       title: "Книги",
       description: "Читай 30 минут в день, чтобы развиваться и узнавать новое.",
     },

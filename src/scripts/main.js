@@ -1,5 +1,9 @@
 import { habits } from './data.js';
 import { addHabit, initHabits, clearAllHabits } from './dom.js';
+import '../style/style.css';
+import runImage from '../assets/5d38416977442.jpg';
+import waterImage from '../assets/i (1).webp';
+import bookImage from '../assets/i.webp';
 
 const titlInput = document.getElementById('habit-title');
 const descriptionInput = document.getElementById('habit-description');
