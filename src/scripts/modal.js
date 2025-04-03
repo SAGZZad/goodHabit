@@ -1,3 +1,4 @@
+
 import { addHabit } from './dom.js';
 
 const ul = document.getElementById('ul');
@@ -29,7 +30,7 @@ export function openEditModal(liElement, currentTitle, currentDescription, curre
     const newImage = editImage.value.trim();
     
     const cards = ul.querySelectorAll('li');
-    const  actualCard = null;
+    let  actualCard = null;
     
     cards.forEach(card => {
       if (card.querySelector('.h4tit').textContent === currentTitle &&

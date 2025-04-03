@@ -1,41 +1,57 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development', // 'production' или 'development'
   entry: './src/scripts/main.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/[name][ext]'
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
         }
       },
-    ],
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource' // добавит файлы в dist и вернёт URL
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        type: 'asset/resource'
+      },
+      {
+        test: /\.css$/i, // Регулярное выражение для обработки .css файлов
+        use: [
+          'style-loader', // Вставляет CSS в DOM через <style> теги
+          {
+            loader: 'css-loader', // Обрабатывает @import и url() в CSS
+            options: { importLoaders: 1 } // Указывает, что postcss-loader должен применяться к @import
+          },
+          'postcss-loader' // Обрабатывает CSS с помощью PostCSS (например, autoprefixer)
+        ]
+      }
+    ]
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
-      filename: 'index.html'
-    }),
+      template: './src/inedx.html', // исходный HTML-шаблон
+      filename: 'index.html'        // имя выходного HTML-файла
+    })
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
-    port: 9000,
+
+// Понадобится для автоматической пересборки проекта
+devServer: {
+    static: path.resolve(__dirname, 'dist'),
+    port: 3000,
     open: true,
-    hot: true
-  },
+    hot: true, // Включает Hot Module Replacement
+  }
+
 };
